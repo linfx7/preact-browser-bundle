@@ -1,6 +1,6 @@
 {
-  "name": "preact-htm-signals-standalone",
-  "version": "0.0.16",
+  "name": "preact-browser-bundle",
+  "version": "10.29.0",
   "description": "A single, standalone version of Preact, HTM and Preact Signals. No external dependencies, just one single file.",
   "type": "module",
   "main": "dist/standalone.umd.js",
@@ -11,9 +11,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mujahidfa/preact-htm-signals-standalone.git"
+    "url": "git+https://github.com/linfx7/preact-browser-bundle.git"
   },
-  "homepage": "https://github.com/mujahidfa/preact-htm-signals-standalone",
+  "homepage": "https://github.com/linfx7/preact-browser-bundle",
   "keywords": [
     "preact signals",
     "signals",
@@ -39,9 +39,9 @@
     "hyperscript"
   ],
   "devDependencies": {
-    "@preact/signals": "^1.2.2",
-    "htm": "3.1.1",
+    "@preact/signals": "^2.8.2",
+    "htm": "^3.1.1",
     "microbundle": "^0.15.1",
-    "preact": "^10.19.3"
+    "preact": "^10.29.0"
   }
 }

@@ -1,10 +1,12 @@
 # Preact + HTM + Preact Signals standalone
 
-[![](https://data.jsdelivr.com/v1/package/npm/preact-htm-signals-standalone/badge)](https://www.jsdelivr.com/package/npm/preact-htm-signals-standalone)
+[![](https://data.jsdelivr.com/v1/package/npm/preact-browser-bundle/badge)](https://www.jsdelivr.com/package/npm/preact-browser-bundle)
 
 A single, standalone version of [Preact](https://github.com/preactjs/preact), [HTM](https://github.com/developit/htm) and [Preact Signals](https://github.com/preactjs/signals). No external dependencies, just one single file.
 
-One single file that you can use via [CDN](https://cdn.jsdelivr.net/npm/preact-htm-signals-standalone/dist/standalone.js) or [download locally](https://github.com/mujahidfa/preact-htm-signals-standalone/blob/main/dist/standalone.js) for offline use.
+One single file that you can use via [CDN](https://cdn.jsdelivr.net/npm/preact-browser-bundle/dist/standalone.js) or [download locally](https://github.com/linfx7/preact-browser-bundle/blob/main/dist/standalone.js) for offline use.
+
+**Forked from [mujahidfa/preact-htm-signals-standalone](https://github.com/mujahidfa/preact-htm-signals-standalone) , with major dependencies updated to the latest versions.**
 
 ## Usage
 
@@ -17,18 +19,18 @@ One single file that you can use via [CDN](https://cdn.jsdelivr.net/npm/preact-h
     html,
     render,
     signal,
-  } from "https://cdn.jsdelivr.net/npm/preact-htm-signals-standalone/dist/standalone.js";
+  } from "https://cdn.jsdelivr.net/npm/preact-browser-bundle/dist/standalone.js";
 
   const count = signal(0);
 
   function App() {
     return html`
       <div>
-        <h1 class>Hello World!</h1>
+        <h1>Hello World!</h1>
         <button onClick=${() => (count.value += 1)}>
           Increment with signal
         </button>
-        <p>Counter: ${count}</p>
+        <p>Counter: ${count.value}</p>
       </div>
     `;
   }
@@ -92,7 +94,7 @@ Simply put, my ideal situation looks like this (made possible by this project):
 ```html
 <script type="module">
   // Download the prebundled scripts locally for offline use
-  import { html, render, signal } from "./preact-htm-signals-standalone.js";
+  import { html, render, signal } from "./standalone.js";
 </script>
 ```
 
@@ -105,8 +107,8 @@ All rights belong to [Preact](https://github.com/preactjs/preact), [HTM](https:/
 Install and bundle them (via [Microbundle](https://github.com/developit/microbundle)):
 
 ```sh
-git clone https://github.com/mujahidfa/preact-htm-signals-standalone.git
-cd preact-htm-signals-standalone
+git clone https://github.com/linfx7/preact-browser-bundle.git
+cd preact-browser-bundle
 pnpm i
 pnpm bundle
 npm publish --dry-run # to test out publishing to npm

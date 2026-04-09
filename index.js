@@ -35,12 +35,18 @@ import {
 } from "preact/hooks";
 import htm from "htm";
 import {
+  Signal,
+  action,
   batch,
   computed,
+  createModel,
   effect,
-  useComputed,
-  useSignal,
   signal,
+  untracked,
+  useComputed,
+  useModel,
+  useSignal,
+  useSignalEffect,
 } from "@preact/signals";
 
 const html = htm.bind(h);
@@ -66,10 +72,16 @@ export {
   useContext,
   useDebugValue,
   useErrorBoundary,
+  Signal,
+  action,
   batch,
   computed,
+  createModel,
   effect,
-  useComputed,
-  useSignal,
   signal,
+  untracked,
+  useComputed,
+  useModel,
+  useSignal,
+  useSignalEffect,
 };

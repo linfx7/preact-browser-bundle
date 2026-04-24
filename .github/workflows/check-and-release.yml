@@ -1,0 +1,91 @@
+name: Check Updates and Release
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  check-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - run: pnpm install
+
+      - name: Check for preact update
+        id: check
+        run: |
+          CURRENT=$(node -p "require('./node_modules/preact/package.json').version")
+          LATEST=$(pnpm info preact version)
+          echo "current=$CURRENT" >> $GITHUB_OUTPUT
+          echo "latest=$LATEST" >> $GITHUB_OUTPUT
+          if [ "$CURRENT" = "$LATEST" ]; then
+            echo "updated=false" >> $GITHUB_OUTPUT
+          else
+            echo "updated=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Check if tag already exists
+        if: steps.check.outputs.updated == 'true'
+        id: tag-check
+        run: |
+          VERSION=${{ steps.check.outputs.latest }}
+          if git ls-remote --tags origin | grep -q "refs/tags/$VERSION$"; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Update dependencies
+        if: steps.check.outputs.updated == 'true' && steps.tag-check.outputs.exists != 'true'
+        run: pnpm update --latest
+
+      - name: Sync version to preact
+        if: steps.check.outputs.updated == 'true' && steps.tag-check.outputs.exists != 'true'
+        run: pnpm pkg set version=${{ steps.check.outputs.latest }}
+
+      - name: Build
+        if: steps.check.outputs.updated == 'true' && steps.tag-check.outputs.exists != 'true'
+        run: pnpm bundle
+
+      - name: Smoke test
+        if: steps.check.outputs.updated == 'true' && steps.tag-check.outputs.exists != 'true'
+        run: pnpm test
+
+      - name: Commit, tag and push
+        if: steps.check.outputs.updated == 'true' && steps.tag-check.outputs.exists != 'true'
+        run: |
+          VERSION=${{ steps.check.outputs.latest }}
+          git config user.name "linfx7"
+          git config user.email "linfx7@gmail.com"
+          git add package.json pnpm-lock.yaml dist/
+          git commit -m "build: upgrade dependencies and sync bundle"
+          git tag "$VERSION"
+          git push origin main --tags
+
+      - name: Create release
+        if: steps.check.outputs.updated == 'true' && steps.tag-check.outputs.exists != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          VERSION=${{ steps.check.outputs.latest }}
+          SIGNALS_VER=$(node -p "require('./node_modules/@preact/signals/package.json').version")
+          HTM_VER=$(node -p "require('./node_modules/htm/package.json').version")
+          gh release create "$VERSION" \
+            dist/standalone.js \
+            dist/standalone.umd.js \
+            --title "$VERSION" \
+            --notes "Preact $VERSION / @preact/signals $SIGNALS_VER / htm $HTM_VER"

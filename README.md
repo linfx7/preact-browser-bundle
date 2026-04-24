@@ -111,6 +111,12 @@ git clone https://github.com/linfx7/preact-browser-bundle.git
 cd preact-browser-bundle
 pnpm i
 pnpm bundle
-npm publish --dry-run # to test out publishing to npm
-npm publish
+pnpm test
+```
+
+## Publishing
+
+```sh
+pnpm publish --dry-run # to test out publishing to npm
+pnpm publish
 ```

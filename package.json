@@ -7,7 +7,8 @@
   "module": "dist/standalone.js",
   "umd:main": "dist/standalone.umd.js",
   "scripts": {
-    "bundle": "microbundle index.js -o ./dist/standalone.js -f es,umd --no-sourcemap --target web"
+    "bundle": "microbundle index.js -o ./dist/standalone.js -f es,umd --no-sourcemap --target web",
+    "test": "node smoke-test.mjs"
   },
   "repository": {
     "type": "git",

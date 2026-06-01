@@ -10,7 +10,7 @@ importers:
     devDependencies:
       '@preact/signals':
         specifier: ^2.9.0
-        version: 2.9.0(preact@10.29.2)
+        version: 2.9.0(preact@10.29.1)
       htm:
         specifier: ^3.1.1
         version: 3.1.1
@@ -18,8 +18,8 @@ importers:
         specifier: ^0.15.1
         version: 0.15.1
       preact:
-        specifier: ^10.29.2
-        version: 10.29.2
+        specifier: ^10.29.1
+        version: 10.29.1
 
 packages:
 
@@ -1755,8 +1755,8 @@ packages:
     resolution: {integrity: sha512-SoSL4+OSEtR99LHFZQiJLkT59C5B1amGO1NzTwj7TT1qCUgUO6hxOvzkOYxD+vMrXBM3XJIKzokoERdqQq/Zmg==}
     engines: {node: ^10 || ^12 || >=14}
 
-  preact@10.29.2:
-    resolution: {integrity: sha512-7tNmwg/7mzzAoB/8kSg6Hl37JraAZw3Z3A0JSY7VXlZwo82Xn0G7wKbNNs2qoF4ZEEsQGTwDAroNdqKs1ofJxQ==}
+  preact@10.29.1:
+    resolution: {integrity: sha512-gQCLc/vWroE8lIpleXtdJhTFDogTdZG9AjMUpVkDf2iTCNwYNWA+u16dL41TqUDJO4gm2IgrcMv3uTpjd4Pwmg==}
 
   pretty-bytes@3.0.1:
     resolution: {integrity: sha512-eb7ZAeUTgfh294cElcu51w+OTRp/6ItW758LjwJSK72LDevcuJn0P4eD71PLMDGPwwatXmAmYHTkzvpKlJE3ow==}
@@ -2885,10 +2885,10 @@ snapshots:
 
   '@preact/signals-core@1.14.2': {}
 
-  '@preact/signals@2.9.0(preact@10.29.2)':
+  '@preact/signals@2.9.0(preact@10.29.1)':
     dependencies:
       '@preact/signals-core': 1.14.2
-      preact: 10.29.2
+      preact: 10.29.1
 
   '@rollup/plugin-alias@3.1.9(rollup@2.80.0)':
     dependencies:
@@ -4135,7 +4135,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  preact@10.29.2: {}
+  preact@10.29.1: {}
 
   pretty-bytes@3.0.1:
     dependencies:

@@ -56,7 +56,7 @@ jobs:
 
       - name: Sync version to preact
         if: steps.check.outputs.updated == 'true' && steps.tag-check.outputs.exists != 'true'
-        run: pnpm pkg set version=${{ steps.check.outputs.latest }}
+        run: npm pkg set version=${{ steps.check.outputs.latest }}
 
       - name: Build
         if: steps.check.outputs.updated == 'true' && steps.tag-check.outputs.exists != 'true'

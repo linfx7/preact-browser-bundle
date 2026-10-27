@@ -1,5 +1,5 @@
 import {
-  h, htm, html, render, Component, createContext, createRef,
+  h, htm, html, render, Component, createContext, createPortal, createRef,
   cloneElement, toChildArray,
   useState, useReducer, useEffect, useLayoutEffect, useRef,
   useImperativeHandle, useMemo, useCallback, useContext,
@@ -103,6 +103,7 @@ for (const [name, fn] of Object.entries({
 
 // render, action, createModel, htm are functions
 assert(typeof render === 'function', 'render is function');
+assert(typeof createPortal === 'function', 'createPortal is function');
 assert(typeof action === 'function', 'action is function');
 assert(typeof createModel === 'function', 'createModel is function');
 assert(typeof htm === 'function', 'htm is function');

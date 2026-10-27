@@ -14,6 +14,7 @@
 import {
   h,
   Component,
+  Fragment,
   createContext,
   createPortal,
   createRef,
@@ -33,6 +34,7 @@ import {
   useContext,
   useDebugValue,
   useErrorBoundary,
+  useId,
 } from "preact/hooks";
 import htm from "htm";
 import {
@@ -58,6 +60,7 @@ export {
   html,
   render,
   Component,
+  Fragment,
   createContext,
   createPortal,
   createRef,
@@ -74,6 +77,7 @@ export {
   useContext,
   useDebugValue,
   useErrorBoundary,
+  useId,
   Signal,
   action,
   batch,

@@ -1,9 +1,9 @@
 import {
-  h, htm, html, render, Component, createContext, createPortal, createRef,
-  cloneElement, toChildArray,
+  h, htm, html, render, Component, Fragment, createContext, createPortal,
+  createRef, cloneElement, toChildArray,
   useState, useReducer, useEffect, useLayoutEffect, useRef,
   useImperativeHandle, useMemo, useCallback, useContext,
-  useDebugValue, useErrorBoundary,
+  useDebugValue, useErrorBoundary, useId,
   Signal, action, batch, computed, createModel, effect,
   signal, untracked, useComputed, useModel, useSignal,
   useSignalEffect
@@ -57,6 +57,17 @@ assert(cloned.props.b === 2, 'cloneElement merges new props');
 const arr = toChildArray([h('a', null), [h('b', null), h('c', null)]]);
 assert(arr.length === 3, 'toChildArray flattens nested children');
 
+// Fragment — with htm it must be interpolated; a bare <> yields type ''
+const frag = html`<${Fragment}><div>a</div><span>b</span></${Fragment}>`;
+assert(frag.type === Fragment, 'html`` interpolated Fragment vnode type');
+assert(frag.props.children.length === 2, 'Fragment keeps both children');
+assert(Fragment({ children: ['x', 'y'] }).length === 2, 'Fragment returns its children');
+
+// htm multi-root template returns a child array Preact can render directly
+const roots = html`<div>a</div><span>b</span>`;
+assert(Array.isArray(roots), 'html`` multi-root returns array');
+assert(roots.length === 2, 'html`` multi-root array length');
+
 // signal reactivity
 const s = signal(1);
 assert(s.value === 1, 'signal initial value');
@@ -95,7 +106,7 @@ assert(tracked === false, 'untracked prevents dependency tracking');
 for (const [name, fn] of Object.entries({
   useState, useReducer, useEffect, useLayoutEffect, useRef,
   useImperativeHandle, useMemo, useCallback, useContext,
-  useDebugValue, useErrorBoundary,
+  useDebugValue, useErrorBoundary, useId,
   useComputed, useModel, useSignal, useSignalEffect
 })) {
   assert(typeof fn === 'function', name + ' is function');

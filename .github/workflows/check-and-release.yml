@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write # required for npm trusted publishing (OIDC)
 
 jobs:
   check-and-release:
@@ -91,8 +92,17 @@ jobs:
             --title "$VERSION" \
             --notes "Preact $VERSION / @preact/signals $SIGNALS_VER / htm $HTM_VER"
 
+      # Publishes via trusted publishing (OIDC): no NPM_TOKEN, since npm no
+      # longer lets tokens bypass MFA. Deliberately ungated on the update
+      # check -- a version that was tagged but failed to publish gets picked
+      # up on the next run instead of being stranded.
       - name: Publish to npm
-        if: steps.check.outputs.updated == 'true' && steps.tag-check.outputs.exists != 'true'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpm publish --no-git-checks --access public
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if npm view "preact-browser-bundle@$VERSION" version > /dev/null 2>&1; then
+            echo "$VERSION is already on npm, nothing to publish"
+            exit 0
+          fi
+          echo "Publishing $VERSION to npm"
+          pnpm test
+          npm publish --access public

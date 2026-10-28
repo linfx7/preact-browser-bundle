@@ -1,6 +1,6 @@
 {
   "name": "preact-browser-bundle",
-  "version": "11.0.2",
+  "version": "11.1.0",
   "description": "A single, standalone version of Preact, HTM and Preact Signals. No external dependencies, just one single file.",
   "type": "module",
   "main": "dist/standalone.umd.js",
@@ -40,9 +40,9 @@
     "hyperscript"
   ],
   "devDependencies": {
-    "@preact/signals": "^2.11.3",
+    "@preact/signals": "^2.11.4",
     "htm": "^3.1.1",
     "microbundle": "^0.15.1",
-    "preact": "^11.0.2"
+    "preact": "^11.1.0"
   }
 }
